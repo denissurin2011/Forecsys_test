@@ -118,8 +118,8 @@ private:
     const char* name;
 
     void print() override{
-        std::string s;
-        dfs(bor, s);
+        std::string country;
+        dfs(bor, country);
     }
 
     char make_char(int n) {
@@ -132,17 +132,17 @@ private:
         }
     }
 
-    void dfs(Vertex* bor, std::string &s) {
+    void dfs(Vertex* bor, std::string &country) {
         const int alph = 54;
         if (bor->leaf) {
-            std::cout << s << ';' << bor->count << ';' << bor->id << std::endl;
+            std::cout << country << ';' << bor->count << ';' << bor->id << std::endl;
         }
         for (size_t i = 0; i < alph; ++i) {
             if (bor->next[i]) {
                 char c = make_char(i);
-                s += c;
-                dfs(bor->next[i], s);
-                s = s.substr(1);
+                country += c;
+                dfs(bor->next[i], country);
+                country = country.substr(1);
             }
         }
         return;
