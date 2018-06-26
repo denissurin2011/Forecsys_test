@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-using namespace std;
-
 class Base {
  public:
     Base() : name ("input.txt") {}
@@ -15,9 +13,9 @@ class Base {
 
     ~Base() {}
 
-    int separate (const string& s, string& id, string &country) {
+    int separate (const std::string& s, std::string& id, std::string &country) {
         size_t ind = 0;
-        string count;
+        std::string count;
         int check_format = 1;
         for (;ind < s.size(); ++ind) {
             if (isdigit(s[ind])) {
@@ -66,10 +64,10 @@ class Base {
 
     void read(){
         freopen(name, "rt", stdin);
-        string s;
-        while (cin >> s) {
-            string id;
-            string country;
+        std::string s;
+        while (std::cin >> s) {
+            std::string id;
+            std::string country;
             int count = separate(s, id, country);
             if (!count) {
                 continue;
@@ -78,7 +76,7 @@ class Base {
         }
     }
 
-    virtual void add(const string& id, int count, const string& country) {}
+    virtual void add(const std::string& id, int count, const std::string& country) {}
 
     virtual void print() {}
 
@@ -120,7 +118,7 @@ private:
     const char* name;
 
     void print() override{
-        string s;
+        std::string s;
         dfs(bor, s);
     }
 
@@ -134,10 +132,10 @@ private:
         }
     }
 
-    void dfs(Vertex* bor, string &s) {
+    void dfs(Vertex* bor, std::string &s) {
         const int alph = 54;
         if (bor->leaf) {
-            cout << s << ';' << bor->count << ';' << bor->id << endl;
+            std::cout << s << ';' << bor->count << ';' << bor->id << std::endl;
         }
         for (size_t i = 0; i < alph; ++i) {
             if (bor->next[i]) {
@@ -150,7 +148,7 @@ private:
         return;
     }
 
-    void add(const string& id, int count, const string& country) override{
+    void add(const std::string& id, int count, const std::string& country) override{
         int v = 0;
         Vertex* bor_head = bor;
         for (size_t i = 0; i < country.size(); ++i) {
@@ -211,18 +209,18 @@ class Usual_Solution : Base {
     }
 
 private:
-    void add(const string& id, int count, const string& country) override {
+    void add(const std::string& id, int count, const std::string& country) override {
         data[country].first += count;
         data[country].second.insert(id);
     }
 
     void print() override {
         for (const auto& i : data) {
-            cout << i.first << ';' << i.second.first << ';' << i.second.second.size() << endl;
+            std::cout << i.first << ';' << i.second.first << ';' << i.second.second.size() << std::endl;
         }
     }
     const char* name;
-    unordered_map <string, pair<int, unordered_set<string>>> data;
+    std::unordered_map <std::string, std::pair<int, std::unordered_set<std::string>>> data;
 };
 
 int main(int argc, char *argv[]) {
